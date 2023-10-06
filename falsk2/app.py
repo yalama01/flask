@@ -6,9 +6,12 @@ app = Flask(__name__)
 def index():
     return render_template('layout.html')
 
-@app.route('/result', methods=['GET'])
+@app.route('/result', methods=['GET', 'POST'])
 def result():
-    number = request.args.get('number', None)
+    if request.method == 'POST':
+        number = request.form.get('number', None)
+    else:
+        number = request.args.get('number', None)
 
     if number is None:
         return "Error: No number provided. <a href='/'>Go back</a>"
@@ -21,6 +24,7 @@ def result():
             result_text = "Odd number"
     except ValueError:
         result_text = "Not an integer"
+        
 
     return render_template('result.html', result=result_text)
 
