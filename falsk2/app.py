@@ -1,32 +1,27 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('layout.html')
-
-@app.route('/result', methods=['GET', 'POST'])
-def result():
     if request.method == 'POST':
-        number = request.form.get('number', None)
+        number = request.form.get('number')
     else:
-        number = request.args.get('number', None)
+        number = request.args.get('number')
 
-    if number is None:
-        return "Error: No number provided. <a href='/'>Go back</a>"
+    result_text = ""
 
-    try:
-        number = int(number)
-        if number % 2 == 0:
-            result_text = "Even number"
-        else:
-            result_text = "Odd number"
-    except ValueError:
-        result_text = "Not an integer"
-        
+    if number is not None:
+        try:
+            number = int(number)
+            if number % 2 == 0:
+                result_text = "Even number"
+            else:
+                result_text = "Odd number"
+        except ValueError:
+            result_text = "Not an integer"
 
-    return render_template('result.html', result=result_text)
+    return render_template('layout.html', result=result_text)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 
 # Global dictionary to store registrations (name: organization)
-registrations = {}
+user_registrations = {}
 
 # List of valid organizations
 valid_organizations = ['Organization A', 'Organization B', 'Organization C', 'Organization D', 'Organization E']
@@ -23,13 +23,13 @@ def register():
     if organization not in valid_organizations:
         return "Error: Invalid organization selected. <a href='/'>Go back</a>"
 
-    registrations[name] = organization
+    user_registrations[name] = organization
 
     return redirect(url_for('registrations'))
 
 @app.route('/registrations')
 def registrations():
-    return render_template('registrations.html', registrations=registrations)
+    return render_template('registrations.html', registrations=user_registrations)
 
 if __name__ == '__main__':
     app.run(debug=True)

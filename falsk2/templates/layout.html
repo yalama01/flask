@@ -1,25 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Even or Odd Checker</title>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Include custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Odd/Even Checker</title>
 </head>
 <body>
-<div class="container mt-5">
-    <h1 class="display-4">Even or Odd Number Checker</h1>
-    <form action="/result" method="post"> <!-- Change method to POST -->
-        <div class="form-group">
-            <label for="number">Enter an integer:</label>
-            <input type="text" class="form-control" id="number" name="number">
-        </div>
-        <button type="submit" class="btn btn-primary">Check</button>
+    <h1>Check if a Number is Odd or Even</h1>
+    <form method="get">
+        <input type="number" name="number" placeholder="Enter a number">
+        <input type="submit" value="Check">
     </form>
-</div>
 
+    {% if result %}
+    <div>
+        <p>{{ result }}</p>
+        <a href="/">Go back</a>
+    </div>
+    {% endif %}
 </body>
 </html>
